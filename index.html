@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tele-Earn Pro</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Telegram SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
@@ -12,50 +15,100 @@
 </head>
 <body>
 
-    <div id="loading-screen">
-        <div class="loader"></div>
+    <!-- Loading Screen -->
+    <div id="loader" class="screen">
+        <div class="spinner"></div>
         <p>Checking Security...</p>
     </div>
 
     <!-- VPN/IP Blocked Screen -->
-    <div id="vpn-blocked" class="hidden error-page">
+    <div id="vpn-blocked" class="screen hidden error-bg">
+        <i class="fas fa-shield-virus icon-big"></i>
         <h1>VPN Detected!</h1>
-        <p>ভিপিএন বন্ধ করে আবার চেষ্টা করুন।</p>
+        <p>নিরাপত্তার স্বার্থে VPN ব্যবহার নিষিদ্ধ। দয়া করে VPN বন্ধ করে পুনরায় চেষ্টা করুন।</p>
     </div>
 
     <!-- Device Blocked Screen -->
-    <div id="device-blocked" class="hidden error-page">
-        <h1>Multiple IDs Not Allowed!</h1>
-        <p>এই ডিভাইসে অলরেডি একটি অ্যাকাউন্ট আছে।</p>
+    <div id="device-blocked" class="screen hidden error-bg">
+        <i class="fas fa-mobile-alt icon-big"></i>
+        <h1>Device Locked!</h1>
+        <p>এক ডিভাইসে একাধিক টেলিগ্রাম অ্যাকাউন্ট ব্যবহার করা নিষিদ্ধ।</p>
     </div>
 
-    <!-- Main App Layout -->
-    <div id="main-app" class="hidden">
-        <nav class="bottom-nav">
-            <div onclick="route('dashboard')">Home</div>
-            <div onclick="route('task')">Task</div>
-            <div onclick="route('myteam')">Team</div>
-            <div onclick="route('withdraw')">Withdraw</div>
-            <div onclick="route('support')">Support</div>
-        </nav>
-
+    <!-- Main App Structure -->
+    <div id="app" class="hidden">
+        
+        <!-- Top Header -->
         <header>
-            <div class="user-profile">
-                <img id="u-photo" src="">
+            <div class="user-meta">
+                <img id="u-photo" src="" alt="">
                 <div>
-                    <h4 id="u-name">User Name</h4>
-                    <span id="u-status">Inactive</span>
+                    <h4 id="u-name">User</h4>
+                    <span id="u-status" class="status-badge">Checking...</span>
                 </div>
             </div>
-            <div class="balance-box">
-                <p>Balance</p>
-                <h2 id="u-balance">৳ 0.00</h2>
+            <div class="header-icons">
+                <i class="fas fa-bell"></i>
             </div>
         </header>
 
-        <main id="page-content">
-            <!-- Pages will be injected here by JS -->
+        <!-- Pages Container -->
+        <main id="pages">
+            
+            <!-- Dashboard -->
+            <section id="dashboard" class="page">
+                <div class="balance-card">
+                    <p>Total Balance</p>
+                    <h2 id="u-balance">৳ 0.00</h2>
+                    <button class="btn-act" onclick="showPage('support')">Activate Account</button>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item"><b>5,375+</b><p>Active Members</p></div>
+                    <div class="stat-item"><b>৳ 212k+</b><p>Total Payouts</p></div>
+                </div>
+            </section>
+
+            <!-- Task Page -->
+            <section id="task" class="page hidden">
+                <h3>Daily Tasks</h3>
+                <div class="card" onclick="startTask()">
+                    <div class="card-info">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <span>Gmail Server Job</span>
+                    </div>
+                    <span class="reward">৳ 5.00</span>
+                </div>
+            </section>
+
+            <!-- Withdraw Page -->
+            <section id="withdraw" class="page hidden">
+                <h3>Withdraw Fund</h3>
+                <div class="card-input">
+                    <select id="method">
+                        <option value="bkash">bKash</option>
+                        <option value="nagad">Nagad</option>
+                    </select>
+                    <input type="number" placeholder="Enter Amount">
+                    <button class="btn-main">Confirm Withdraw</button>
+                </div>
+            </section>
+
+            <!-- My Team / Salary / Gift Code ইত্যাদি পেজগুলো এখানে যোগ হবে -->
+             <section id="myteam" class="page hidden"><h3>My Team</h3><p>No referrals yet.</p></section>
+             <section id="salary" class="page hidden"><h3>Salary Status</h3><p>Reach 20 refs to unlock.</p></section>
+             <section id="giftcode" class="page hidden"><h3>Redeem Gift Code</h3><input type="text" placeholder="GIFT2025"><button class="btn-main">Redeem</button></section>
+             <section id="support" class="page hidden"><h3>Support</h3><p>Contact us on Telegram: @admin</p></section>
+
         </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div onclick="showPage('dashboard')"><i class="fas fa-home"></i><span>Home</span></div>
+            <div onclick="showPage('task')"><i class="fas fa-tasks"></i><span>Task</span></div>
+            <div onclick="showPage('myteam')"><i class="fas fa-users"></i><span>Team</span></div>
+            <div onclick="showPage('withdraw')"><i class="fas fa-wallet"></i><span>Wallet</span></div>
+            <div onclick="showPage('support')"><i class="fas fa-headset"></i><span>Help</span></div>
+        </nav>
     </div>
 
     <script src="app.js"></script>
