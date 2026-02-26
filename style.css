@@ -1,0 +1,25 @@
+:root {
+    --primary: #0088cc;
+    --bg: #f8fafd;
+    --card-bg: #ffffff;
+    --text: #333;
+    --accent: #2ed573;
+}
+body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+.page { display: none; min-height: 100vh; padding: 20px; box-sizing: border-box; }
+.active-page { display: block; }
+
+/* Header & Sidebar */
+header { background: #fff; padding: 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.balance-card { background: linear-gradient(45deg, #0088cc, #00d2ff); color: #fff; padding: 25px; border-radius: 20px; text-align: center; margin: 20px 0; }
+
+/* Buttons */
+.btn-main { background: var(--primary); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+.btn-activate { background: linear-gradient(to right, #ff4757, #ff6b81); border: none; padding: 10px 20px; color: #fff; border-radius: 50px; }
+
+/* Task Card */
+.task-card { background: #fff; padding: 15px; border-radius: 15px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+
+/* Error Pages */
+.error-screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: #fff; }
+.error-icon { width: 100px; margin-bottom: 20px; }
