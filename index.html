@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tele-Earn Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Checking Security...</p>
+    </div>
+
+    <!-- VPN/IP Blocked Screen -->
+    <div id="vpn-blocked" class="hidden error-page">
+        <h1>VPN Detected!</h1>
+        <p>ভিপিএন বন্ধ করে আবার চেষ্টা করুন।</p>
+    </div>
+
+    <!-- Device Blocked Screen -->
+    <div id="device-blocked" class="hidden error-page">
+        <h1>Multiple IDs Not Allowed!</h1>
+        <p>এই ডিভাইসে অলরেডি একটি অ্যাকাউন্ট আছে।</p>
+    </div>
+
+    <!-- Main App Layout -->
+    <div id="main-app" class="hidden">
+        <nav class="bottom-nav">
+            <div onclick="route('dashboard')">Home</div>
+            <div onclick="route('task')">Task</div>
+            <div onclick="route('myteam')">Team</div>
+            <div onclick="route('withdraw')">Withdraw</div>
+            <div onclick="route('support')">Support</div>
+        </nav>
+
+        <header>
+            <div class="user-profile">
+                <img id="u-photo" src="">
+                <div>
+                    <h4 id="u-name">User Name</h4>
+                    <span id="u-status">Inactive</span>
+                </div>
+            </div>
+            <div class="balance-box">
+                <p>Balance</p>
+                <h2 id="u-balance">৳ 0.00</h2>
+            </div>
+        </header>
+
+        <main id="page-content">
+            <!-- Pages will be injected here by JS -->
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
