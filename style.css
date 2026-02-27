@@ -1,25 +1,322 @@
-:root { --primary: #0088cc; --bg: #f0f4f7; --white: #ffffff; }
-body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #333; user-select: none; }
+/* 
+ * Tele-Earn Pro | Ultra-Modern Infrastructure Stylesheet
+ * Developer: AI Assisted Pro UI
+ */
+
+:root {
+    --primary: #0088cc;
+    --secondary: #00d2ff;
+    --bg-light: #f4f7f9;
+    --text-dark: #2c3e50;
+    --white: #ffffff;
+    --success: #2ed573;
+    --danger: #ff4757;
+    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Helpers */
 .hidden { display: none !important; }
-.screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-.error-bg { background: #fff; color: #ff4757; }
-.icon-big { font-size: 80px; margin-bottom: 20px; }
 
-header { background: var(--white); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; }
-.user-meta { display: flex; align-items: center; gap: 10px; }
-#u-photo { width: 45px; height: 45px; border-radius: 50%; background: #eee; }
-.status-badge { font-size: 11px; padding: 2px 8px; border-radius: 5px; background: #eee; }
+/* Overlay & Loader */
+.screen-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
 
-.balance-card { background: linear-gradient(135deg, #0088cc, #00d2ff); color: #fff; padding: 30px 20px; border-radius: 20px; margin: 20px; text-align: center; }
-.btn-act { background: #ff4757; border: none; padding: 8px 15px; color: #fff; border-radius: 50px; margin-top: 10px; font-weight: bold; }
+.custom-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
 
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 20px; }
-.stat-item { background: #fff; padding: 15px; border-radius: 15px; text-align: center; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-.bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; }
-.bottom-nav div { text-align: center; color: #777; font-size: 12px; cursor: pointer; }
-.bottom-nav div i { font-size: 20px; display: block; margin-bottom: 2px; }
+/* App Header */
+.app-header {
+    background: var(--white);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
 
-.card { background: #fff; margin: 10px 20px; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
-.reward { color: #2ed573; font-weight: bold; }
-.btn-main { background: var(--primary); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 10px; margin-top: 10px; }
+.profile-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-area img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    object-fit: cover;
+}
+
+.user-text h4 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.badge-status {
+    font-size: 10px;
+    background: #eee;
+    padding: 2px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.action-icons i {
+    font-size: 20px;
+    margin-left: 15px;
+    color: #555;
+}
+
+/* Dashboard Payout Card */
+.payout-card {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    margin: 20px;
+    padding: 25px;
+    border-radius: 24px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 136, 204, 0.2);
+}
+
+.payout-card .label {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.payout-card .amount {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 10px 0;
+}
+
+.btn-glass {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 0 20px;
+}
+
+.stat-box {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow);
+}
+
+.stat-box i {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.stat-box b {
+    display: block;
+    font-size: 16px;
+}
+
+.stat-box p {
+    font-size: 11px;
+    color: #777;
+}
+
+/* Features & Cards */
+.section-title {
+    padding: 20px 20px 10px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.feature-card {
+    background: var(--white);
+    margin: 10px 20px;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: var(--shadow);
+}
+
+.feature-card .icon {
+    width: 45px;
+    height: 45px;
+    background: #eef7ff;
+    color: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    font-size: 20px;
+}
+
+/* Task List */
+.task-card-pro {
+    background: var(--white);
+    margin: 12px 20px;
+    padding: 15px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.t-icon {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.t-badge {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: var(--danger);
+    color: white;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Salary Boxes */
+.salary-box {
+    margin: 15px 20px;
+    padding: 20px;
+    border-radius: 20px;
+    color: white;
+}
+
+.tier-1 { background: linear-gradient(45deg, #f093fb, #f5576c); }
+.tier-2 { background: linear-gradient(45deg, #4facfe, #00f2fe); }
+
+.progress-bar {
+    background: rgba(255,255,255,0.3);
+    height: 8px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.fill {
+    background: white;
+    height: 100%;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+/* Bottom Navigator */
+.bottom-navigator {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: var(--white);
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid #eee;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+}
+
+.nav-item {
+    text-align: center;
+    color: #999;
+    font-size: 11px;
+    transition: 0.3s;
+}
+
+.nav-item i {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.nav-item.active {
+    color: var(--primary);
+}
+
+/* Error Screens */
+.error-screen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    background: white;
+}
+
+.error-screen h1 { color: var(--danger); margin: 20px 0; }
+
+/* Buttons */
+.btn-confirm, .btn-main {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 15px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+/* Form Styles */
+.withdraw-form { padding: 20px; }
+.input-wrap { margin-bottom: 15px; }
+.input-wrap label { display: block; font-size: 12px; margin-bottom: 5px; color: #666; }
+.input-wrap input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    outline: none;
+}
