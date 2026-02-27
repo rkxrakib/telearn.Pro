@@ -81,7 +81,7 @@ bot.on('message', async (msg) => {
             break;
 
         case '👥 Refer':
-            const refLink = `https://t.me/your_bot_username?start=${userId}`;
+            const refLink = `https://t.me/tele_earn_pro_bot?start=${userId}`;
             bot.sendMessage(chatId, `👥 *রেফারেল সিস্টেম*\n\nআপনার রেফারেল লিঙ্ক:\n${refLink}\n\nপ্রতিটি সফল রেফারে পাবেন বোনাস!`, {parse_mode: 'Markdown'});
             break;
 
